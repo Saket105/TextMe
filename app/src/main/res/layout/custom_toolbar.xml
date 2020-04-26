@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Toolbar
+    android:id="@+id/toolbarCustom1"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/SkyBlue"
+    android:popupTheme="@style/AppTheme"
+    >
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/logout"
+        android:layout_marginStart="350dp"/>
+</Toolbar>
