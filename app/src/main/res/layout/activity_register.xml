@@ -12,6 +12,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/IndianRed"/>
     <LinearLayout
+        android:id="@+id/one"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -79,4 +80,13 @@
             android:background="@color/IndianRed"/>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/signInPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Already have an account? Sign In"
+        android:layout_below="@+id/one"
+        android:gravity="center"
+        android:textColor="#000"/>
 </RelativeLayout>

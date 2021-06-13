@@ -8,8 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,12 +30,16 @@ public class RegisterActivity extends AppCompatActivity {
     Button register;
     FirebaseAuth auth;
     DatabaseReference reference;
+    TextView signInPage;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -44,6 +50,11 @@ public class RegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         register = findViewById(R.id.btn_register);
+        signInPage = findViewById(R.id.signInPage);
+
+        signInPage.setOnClickListener(view -> {
+            startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+        });
 
         auth = FirebaseAuth.getInstance();
 
