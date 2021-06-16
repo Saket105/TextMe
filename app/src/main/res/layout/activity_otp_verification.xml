@@ -36,17 +36,39 @@
         android:layout_marginTop="5dp"
         android:textColor="#000"/>
 
-    <TextView
-        android:id="@+id/showNumber"
+    <LinearLayout
+        android:id="@+id/tv_container1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:gravity="center"
-        android:text="Code is sent to 8340173075"
-        android:textColor="#000"
         android:layout_below="@+id/tv1"
-        android:layout_marginTop="15dp"
-        android:alpha="0.7"
-        android:textSize="20sp"/>
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="Code is sent to: "
+            android:layout_marginHorizontal="3dp"
+            android:textColor="#000"
+            android:alpha="0.7"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/showNumber"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:layout_marginHorizontal="3dp"
+            android:text="8340173075"
+            android:textColor="#000"
+            android:alpha="0.7"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/code_container"
@@ -56,7 +78,7 @@
         android:gravity="center"
         android:padding="5dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_below="@+id/showNumber"
+        android:layout_below="@+id/tv_container1"
         android:layout_marginTop="50dp">
 
         <EditText
@@ -183,7 +205,7 @@
 
 
     <TextView
-        android:id="@+id/tv13"
+        android:id="@+id/again_request"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=" Request Again"
@@ -195,18 +217,33 @@
         android:layout_below="@+id/code_container"
         android:layout_toEndOf="@+id/tv12"/>
 
-    <Button
-        android:id="@+id/register"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Verify and Create Account"
-        android:textSize="17sp"
-        android:backgroundTint="@color/main_color2"
-        android:background="@drawable/login_bg"
-        android:layout_marginHorizontal="35dp"
-        android:elevation="5dp"
-        style="@style/AppTheme1"
-        android:layout_below="@+id/tv13"
-        android:layout_marginTop="50dp"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/again_request"
+        android:layout_marginTop="50dp">
+
+        <Button
+            android:id="@+id/register"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Verify and Create Account"
+            android:textSize="17sp"
+            android:backgroundTint="@color/main_color2"
+            android:background="@drawable/login_bg"
+            android:layout_marginHorizontal="35dp"
+            android:elevation="5dp"
+            style="@style/AppTheme1"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+    </FrameLayout>
+
+
 
 </RelativeLayout>
