@@ -4,128 +4,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C3CD2020"
+    android:background="#f2f2f2"
     tools:context=".LoginActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/login_bg">
+        android:background="#fff">
 
         <TextView
             android:id="@+id/tv1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="WelCome To"
-            android:textSize="30sp"
+            android:text="Continue with Phone"
+            android:gravity="center"
+            android:textSize="22sp"
             android:layout_marginHorizontal="15dp"
-            android:layout_marginTop="10dp"
-            android:textColor="#0027FF"
+            android:layout_marginTop="35dp"
+            android:textColor="#000"
             android:textStyle="bold"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextMe"
-            android:gravity="center"
-            android:textColor="#FFBF00"
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="350dp"
+            android:layout_height="300dp"
             android:layout_below="@+id/tv1"
-            android:textSize="35sp"
-            android:textStyle="bold"/>
-
-        <LinearLayout
-            android:id="@+id/nameContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="180dp"
-            android:weightSum="2">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Enter Email"
-                android:drawableStart="@drawable/ic_baseline_email_24"
-                android:drawableTint="#000"
-                android:gravity="center"
-                android:textColor="#000"
-                android:textSize="16sp"
-                android:layout_margin="10dp"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/userid"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="#000"
-                android:textSize="12sp"
-                android:layout_margin="10dp"
-                android:textStyle="bold"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/passwordContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@+id/nameContainer"
-            android:layout_centerInParent="true"
-            android:weightSum="2">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Enter Password"
-                android:drawableStart="@drawable/ic_baseline_lock_24"
-                android:drawableTint="#000"
-                android:gravity="center"
-                android:textColor="#000"
-                android:textSize="16sp"
-                android:layout_margin="10dp"
-                android:textStyle="bold"/>
-
-            <EditText
-                android:id="@+id/password1"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:hint=""
-                android:inputType="textPassword"
-                android:gravity="center"
-                android:textColor="#000"
-                android:textSize="12sp"
-                android:layout_margin="10dp"
-                android:textStyle="bold"/>
-
-        </LinearLayout>
-        <Button
-            android:id="@+id/login"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/passwordContainer"
+            android:layout_marginTop="8dp"
             android:layout_centerHorizontal="true"
-            android:text="LOGIN"
-            android:layout_marginTop="20dp"
-            android:background="#2196F3"
-            android:textColor="#fff"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold"/>
+            android:src="@drawable/phone"/>
 
-        <TextView
-            android:id="@+id/signUpPage"
+        <LinearLayout
+            android:id="@+id/tv_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Don't have an Account? Create One"
-            android:layout_below="@+id/login"
-            android:gravity="center"
-            android:layout_margin="10dp"
-            android:textColor="#000"/>
+            android:layout_below="@+id/img"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="You'll receive a 4 digit code"
+                android:textColor="#000"
+                android:alpha="0.7"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="to verify next."
+                android:textSize="18sp"
+                android:alpha="0.7"
+                android:textColor="#000"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="10dp"
+            android:hint="Enter Phone Number"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxStrokeColor="@color/main_color2"
+            app:hintTextColor="@color/main_color2"
+            app:boxStrokeErrorColor="@color/Red"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxBackgroundMode="outline"
+            android:layout_below="@+id/tv_container">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="+91 83******75"
+                android:inputType="number"
+                android:gravity="center_vertical"
+                android:padding="4dp"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#000"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
 
     </RelativeLayout>
 

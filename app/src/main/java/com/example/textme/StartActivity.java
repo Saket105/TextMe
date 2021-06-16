@@ -51,7 +51,7 @@ public class StartActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(StartActivity.this,RegisterActivity.class));
+                startActivity(new Intent(StartActivity.this, OtpVarificationActivity.class));
                 Toast.makeText(StartActivity.this, "We are taking you to the Register Page...", Toast.LENGTH_SHORT).show();
             }
         });
