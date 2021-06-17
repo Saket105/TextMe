@@ -1,9 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DetailActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/profile_img"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:padding="4dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/saket_one"
+        android:background="@drawable/detail_bg"
+        android:layout_marginTop="30dp"/>
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/main_color2"
+        android:layout_toEndOf="@+id/profile_img"
+        android:layout_marginTop="140dp"
+        android:scaleType="fitXY"
+        android:layout_marginStart="-25dp"
+        android:elevation="7dp"
+        android:outlineSpotShadowColor="#000"
+        android:outlineAmbientShadowColor="#000"
+        android:src="@drawable/photograph"/>
+
+</RelativeLayout>

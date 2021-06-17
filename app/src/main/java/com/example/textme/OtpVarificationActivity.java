@@ -15,15 +15,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.textme.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.TimeUnit;
 
@@ -56,8 +59,9 @@ public class OtpVarificationActivity extends AppCompatActivity {
         againRequest = findViewById(R.id.again_request);
         progressBar = findViewById(R.id.progressBar1);
         auth = FirebaseAuth.getInstance();
+        reference = FirebaseDatabase.getInstance().getReference("Users");
 
-        showNumber.setText(String.format("+91-%s", getIntent().getStringExtra("mobile")));
+        showNumber.setText(String.format("+91 %s", getIntent().getStringExtra("mobile")));
 
         getOtp = getIntent().getStringExtra("backendOtp");
 
@@ -120,6 +124,7 @@ public class OtpVarificationActivity extends AppCompatActivity {
     }
 
     private void SigningUser() {
+
         PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(getOtp, enterCodeOtp);
         FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -127,8 +132,9 @@ public class OtpVarificationActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 signUp.setVisibility(View.VISIBLE);
                 if (task.isSuccessful()) {
-                    startActivity(new Intent(getApplicationContext(), ChatScreen.class));
-                    finish();
+                    pushUserData();
+//                    startActivity(new Intent(getApplicationContext(), DetailActivity.class));
+//                    finish();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -137,6 +143,41 @@ public class OtpVarificationActivity extends AppCompatActivity {
                 Toast.makeText(OtpVarificationActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void pushUserData() {
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        String userId = System.currentTimeMillis()+"";
+        reference = FirebaseDatabase
+                .getInstance()
+                .getReference("users")
+                .child("personal_data")
+                .child(userId);
+
+        User user = new User(
+                userId,
+                "name : "+showNumber.getText().toString(),
+                "image : "+ showNumber.getText().toString(),
+                "Male/Female",
+                showNumber.getText().toString()
+        );
+        reference.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    startActivity(new Intent(OtpVarificationActivity.this,DetailActivity.class)
+                    .putExtra("mob",showNumber.getText().toString()));
+                    Toast.makeText(OtpVarificationActivity.this, "Register SuccessFull!", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void numberOtpMoved() {
