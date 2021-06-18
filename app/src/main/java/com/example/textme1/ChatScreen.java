@@ -14,6 +14,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -78,32 +79,26 @@ public class ChatScreen extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
 
-        firebaseUser = mAuth.getCurrentUser();
-        loaddatafromserver(firebaseUser);
+        String id = mAuth.getCurrentUser().getUid();
+        loaddatafromserver(id);
     }
 
-    private void loaddatafromserver(FirebaseUser firebaseUser1) {
-        String uId = firebaseUser1.getUid();
+    private void loaddatafromserver(String id) {
 
        FirebaseDatabase.getInstance()
                .getReference("users")
                .child("personal_data")
-               .child(uId)
+               .child(id)
                .addValueEventListener(new ValueEventListener() {
                    @Override
                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                      /* if (snapshot.exists()){
-                           for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                               User user1 = dataSnapshot.getValue(User.class);
-                               assert user1 != null;
-                               username.setText(user1.getUsername());
-                               Glide.with(getApplicationContext()).load(user1.getImageUrl()).into(profile_image);
-                               String id = user1.getId();
-                               Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
-                           }
+                       if (snapshot.exists()){
+                               String name = snapshot.child("username").getValue().toString();
+                               username.setText(name);
+                           Toast.makeText(ChatScreen.this, snapshot.child("id").getValue()+"", Toast.LENGTH_SHORT).show();
                        }else{
                            Toast.makeText(ChatScreen.this, "No data to show!", Toast.LENGTH_SHORT).show();
-                       }*/
+                       }
                    }
 
                    @Override
