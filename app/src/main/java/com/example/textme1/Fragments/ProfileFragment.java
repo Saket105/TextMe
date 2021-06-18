@@ -1,4 +1,4 @@
-package com.example.textme.Fragments;
+package com.example.textme1.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
@@ -17,9 +17,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.textme.Model.User;
-import com.example.textme.R;
+import com.example.textme1.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -69,18 +67,20 @@ public class ProfileFragment extends Fragment {
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
+        String userId = fuser.getUid();
+        username.setText(userId);
+        reference = FirebaseDatabase.getInstance().getReference("users").child("personal_data").child(fuser.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                User user = dataSnapshot.getValue(User.class);
-                username.setText(user.getUsername());
-                if (user.getImageUrl().equals("default")){
-                    image_profile.setImageResource(R.mipmap.ic_launcher);
-                } else{
-                    Glide.with(getContext()).load(user.getImageUrl()).into(image_profile);
-                }
+//                User user = dataSnapshot.getValue(User.class);
+//                username.setText(user.getUsername());
+//                if (user.getImageUrl().equals("default")){
+//                    image_profile.setImageResource(R.mipmap.ic_launcher);
+//                } else{
+//                    Glide.with(getContext()).load(user.getImageUrl()).into(image_profile);
+//                }
             }
 
             @Override
@@ -141,7 +141,8 @@ public class ProfileFragment extends Fragment {
                         Uri downloadUri = task.getResult();
                         String mUri = downloadUri.toString();
 
-                        reference = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
+                        reference = FirebaseDatabase.getInstance().getReference("users")
+                                .child("personal_data").child(fuser.getUid());
 
                         HashMap<String, Object> map = new HashMap<>();
                         map.put("imageurl",mUri);

@@ -1,4 +1,4 @@
-package com.example.textme.Model;
+package com.example.textme1.Model;
 
 public class User {
 
@@ -9,6 +9,14 @@ public class User {
     private String phoneNumber;
 
     public User() {
+    }
+
+    public User(String id, String username, String imageUrl, String gender, String phoneNumber) {
+        this.id = id;
+        this.username = username;
+        this.imageUrl = imageUrl;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getId() {
@@ -31,11 +39,4 @@ public class User {
         return phoneNumber;
     }
 
-    public User(String id, String username, String imageUrl, String gender, String phoneNumber) {
-        this.id = id;
-        this.username = username;
-        this.imageUrl = imageUrl;
-        this.gender = gender;
-        this.phoneNumber = phoneNumber;
-    }
 }

@@ -1,4 +1,4 @@
-package com.example.textme;
+package com.example.textme1;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,17 +10,21 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.textme.Fragments.ChatsFragment;
-import com.example.textme.Fragments.ProfileFragment;
-import com.example.textme.Fragments.UsersFragment;
-import com.example.textme.Model.User;
+import com.example.textme1.Fragments.ChatsFragment;
+import com.example.textme1.Fragments.ProfileFragment;
+import com.example.textme1.Fragments.UsersFragment;
+import com.example.textme1.Model.User;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,7 +34,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -39,17 +46,24 @@ public class ChatScreen extends AppCompatActivity {
 
     CircleImageView profile_image;
     TextView username;
-    FirebaseUser firebaseUser;
     DatabaseReference reference;
+    List<User> userList;
+    FirebaseAuth mAuth;
+    FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_screen);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        mAuth = FirebaseAuth.getInstance();
+        reference = FirebaseDatabase.getInstance().getReference("users");
         profile_image = findViewById(R.id.profile_image);
         username = findViewById(R.id.username);
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         ViewPager viewPager = findViewById(R.id.view_pager);
+        userList = new ArrayList<>();
 
         ViewPageAdapter viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager());
         viewPageAdapter.addFragment(new ChatsFragment(),"Chats");
@@ -62,28 +76,42 @@ public class ChatScreen extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbarCustom);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+        firebaseUser = mAuth.getCurrentUser();
+        loaddatafromserver(firebaseUser);
+    }
 
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                username.setText(user.getUsername());
-                if (user.getImageUrl().equals("default")){
-                    profile_image.setImageResource(R.mipmap.ic_launcher);
-                } else {
-                    Glide.with(ChatScreen.this).load(user.getImageUrl()).into(profile_image);
-                }
-            }
+    private void loaddatafromserver(FirebaseUser firebaseUser1) {
+        String uId = firebaseUser1.getUid();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+       FirebaseDatabase.getInstance()
+               .getReference("users")
+               .child("personal_data")
+               .child(uId)
+               .addValueEventListener(new ValueEventListener() {
+                   @Override
+                   public void onDataChange(@NonNull DataSnapshot snapshot) {
+                      /* if (snapshot.exists()){
+                           for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                               User user1 = dataSnapshot.getValue(User.class);
+                               assert user1 != null;
+                               username.setText(user1.getUsername());
+                               Glide.with(getApplicationContext()).load(user1.getImageUrl()).into(profile_image);
+                               String id = user1.getId();
+                               Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
+                           }
+                       }else{
+                           Toast.makeText(ChatScreen.this, "No data to show!", Toast.LENGTH_SHORT).show();
+                       }*/
+                   }
 
-            }
-        });
+                   @Override
+                   public void onCancelled(@NonNull DatabaseError error) {
+
+                   }
+               });
+
     }
 
     @Override

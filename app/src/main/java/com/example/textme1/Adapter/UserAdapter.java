@@ -1,4 +1,4 @@
-package com.example.textme.Adapter;
+package com.example.textme1.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.textme.MessageActivity;
-import com.example.textme.Model.User;
-import com.example.textme.R;
+import com.example.textme1.MessageActivity;
+import com.example.textme1.Model.User;
+import com.example.textme1.R;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.textme.Model;
+package com.example.textme1.Model;
 
 public class Chat {
 

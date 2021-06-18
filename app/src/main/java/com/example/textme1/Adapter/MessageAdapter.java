@@ -1,7 +1,6 @@
-package com.example.textme.Adapter;
+package com.example.textme1.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.textme.MessageActivity;
-import com.example.textme.Model.Chat;
-import com.example.textme.Model.User;
-import com.example.textme.R;
+import com.example.textme1.Model.Chat;
+import com.example.textme1.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

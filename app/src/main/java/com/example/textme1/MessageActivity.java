@@ -1,4 +1,4 @@
-package com.example.textme;
+package com.example.textme1;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,9 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.textme.Adapter.MessageAdapter;
-import com.example.textme.Model.Chat;
-import com.example.textme.Model.User;
+import com.example.textme1.Adapter.MessageAdapter;
+import com.example.textme1.Model.Chat;
+import com.example.textme1.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

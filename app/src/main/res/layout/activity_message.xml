@@ -16,7 +16,7 @@
             android:id="@+id/toolbarCustom"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/IndianRed"
+            android:background="@color/main_color"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/MenuStyle">
 
@@ -24,6 +24,7 @@
                 android:id="@+id/profile_image"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:src="@drawable/saket_one"
                 android:layout_marginStart="8dp" />
 
             <TextView
@@ -31,8 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:layout_marginLeft="30dp"
-                android:text="username"
+                android:text="Saket"
                 android:textColor="@color/White"
                 android:textSize="27sp"
                 android:textStyle="bold" />

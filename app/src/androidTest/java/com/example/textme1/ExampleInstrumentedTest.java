@@ -1,4 +1,4 @@
-package com.example.textme;
+package com.example.textme1;
 
 import android.content.Context;
 

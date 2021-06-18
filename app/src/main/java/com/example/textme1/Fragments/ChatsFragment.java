@@ -1,4 +1,4 @@
-package com.example.textme.Fragments;
+package com.example.textme1.Fragments;
 
 import android.os.Bundle;
 
@@ -11,10 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.textme.Adapter.UserAdapter;
-import com.example.textme.Model.Chat;
-import com.example.textme.Model.User;
-import com.example.textme.R;
+import com.example.textme1.Adapter.UserAdapter;
+import com.example.textme1.Model.Chat;
+import com.example.textme1.Model.User;
+import com.example.textme1.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

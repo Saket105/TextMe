@@ -1,4 +1,4 @@
-package com.example.textme;
+package com.example.textme1;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.textme.Model.User;
+import com.example.textme1.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -147,7 +147,7 @@ public class OtpVarificationActivity extends AppCompatActivity {
 
     private void pushUserData() {
         FirebaseUser firebaseUser = auth.getCurrentUser();
-        String userId = System.currentTimeMillis()+"";
+        String userId = firebaseUser.getUid();
         reference = FirebaseDatabase
                 .getInstance()
                 .getReference("users")

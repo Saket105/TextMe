@@ -9,20 +9,23 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/main_color"
+        android:paddingTop="30dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarCustom"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/IndianRed"
+            android:layout_height="wrap_content"
+            android:background="@color/main_color"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/MenuStyle">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/saket_one"
                 android:layout_marginStart="8dp"/>
 
             <TextView
@@ -30,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/username"
                 android:layout_marginLeft="30dp"
-                android:text="username"
+                android:text="UserName"
                 android:textStyle="bold"
                 android:textSize="27sp"
                 android:textColor="@color/White"
@@ -42,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tab_layout"
-            android:background="@color/IndianRed"
+            android:background="@color/main_color"
             app:tabSelectedTextColor="@color/White"
             app:tabIndicatorColor="@color/White"
             app:tabTextColor="@color/White"
