@@ -90,9 +90,10 @@ public class ChatsFragment extends Fragment {
     private void readChats(){
         mUsers = new ArrayList<>();
 
-        reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference = FirebaseDatabase.getInstance().getReference("users");
 
-        reference.addValueEventListener(new ValueEventListener() {
+        reference.child("personal_data")
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //mUsers.clear();

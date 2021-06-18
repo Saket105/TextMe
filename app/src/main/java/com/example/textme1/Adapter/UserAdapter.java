@@ -20,8 +20,8 @@ import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
-    private Context mContext;
-    private List<User> mUser;
+     Context mContext;
+     List<User> mUser;
 
     public UserAdapter(Context mContext, List<User> mUser){
         this.mContext = mContext;
