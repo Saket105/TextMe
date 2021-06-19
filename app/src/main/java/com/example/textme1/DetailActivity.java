@@ -1,8 +1,11 @@
 package com.example.textme1;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -18,14 +21,26 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.textme1.Model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -38,12 +53,10 @@ public class DetailActivity extends AppCompatActivity {
     RadioButton selectedRadioBtn;
     String gender, name, phoneNumbers, imagesUrl;
     Uri imageUri;
-    FirebaseUser firebaseUser;
-    FirebaseAuth mAuth;
     DatabaseReference reference;
     StorageReference storageReference;
     String userId;
-
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +70,12 @@ public class DetailActivity extends AppCompatActivity {
         profileImg = findViewById(R.id.profile_img);
         selectImg = findViewById(R.id.profile_update_btn);
         imageUrlView = findViewById(R.id.img_url);
+
+        progressDialog = new ProgressDialog(getApplicationContext());
+        progressDialog.setTitle("Data Uploading!");
+        progressDialog.setMessage("Please wait your data is uploading!");
+        progressDialog.setCancelable(false);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 
         edtphoneNumber.setText(String.format("%s", getIntent().getStringExtra("mob")));
         reference = FirebaseDatabase.getInstance().getReference("users");
@@ -72,63 +91,17 @@ public class DetailActivity extends AppCompatActivity {
 
         submitButton.setOnClickListener(view -> {
             selectedRadioBtn = radioGroup.findViewById(radioGroup.getCheckedRadioButtonId());
-            if (selectedRadioBtn != null) {
+            if (selectedRadioBtn != null)
+            {
                 gender = selectedRadioBtn.getText().toString();
-                Toast.makeText(this, gender, Toast.LENGTH_SHORT).show();
             }
-            //TODO Work on update database
-            upDateProfile();
+            upDateProfile(userId);
         });
     }
 
-    private void upDateProfile() {
-        /*name = edtName.getText().toString();
-        phoneNumbers = edtphoneNumber.getText().toString();
-        imagesUrl = imageUrlView.getText().toString();
-        String gen = gender;
-        mAuth.updateCurrentUser(firebaseUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
-                    User user = new User(
-                            System.currentTimeMillis()+"",
-                            name,
-                            imagesUrl,
-                            gen,
-                            phoneNumbers
-                    );
-                    reference.child("personal_data")
-                            .child(user.getId())
-                            .setValue(user)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()){
-                                        startActivity(new Intent(DetailActivity.this,ChatScreen.class));
-                                        finish();
-                                        Toast.makeText(DetailActivity.this, "Data Uploaded", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(DetailActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(DetailActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });*/
+    private void upDateProfile(String userId) {
 
-        /*
-        name = edtName.getText().toString();
-        phoneNumbers = edtphoneNumber.getText().toString();
-        imagesUrl = imageUrlView.getText().toString();
-        String gen = gender;
+//        progressDialog.show();
         StorageReference storageRef = storageReference.child("profileImages/")
                 .child("img"+System.currentTimeMillis());
         storageRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -137,28 +110,33 @@ public class DetailActivity extends AppCompatActivity {
                 storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
+
+                        name = edtName.getText().toString();
+                        phoneNumbers = edtphoneNumber.getText().toString();
+                        String gen = gender;
+                        imagesUrl = uri.toString();
+
                         Map<String, Object> map = new HashMap<>();
-                        map.put("imageUrl",uri.toString());
-                        map.put("username",name);
                         map.put("gender",gen);
-
-                        User user = new User(
-                                userId,
-                                name,
-                                uri.toString(),
-                                gen,
-                                phoneNumbers
-                        );
-
-                        reference.child("personal_data").child(userId).addValueEventListener(new ValueEventListener() {
+                        map.put("imageUrl",imagesUrl);
+                        map.put("id",userId);
+                        map.put("phoneNumber",phoneNumbers);
+                        map.put("username",name);
+                        reference.child("personal_data")
+                                .child(userId).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if (snapshot.exists()){
-//                                    reference.child("personal_data").child(userId).updateChildren(map);
-//                                    reference.child("personal_data").child(userId).updateChildren();
-                                }else {
+                                    //reference.child("personal_data").child(userId).updateChildren(map);
+//                                    progressDialog.dismiss();
                                     reference.child("personal_data").child(userId).setValue(map);
+                                    startActivity(new Intent(DetailActivity.this,ChatScreen.class));
+                                    finish();
                                 }
+                                else
+                                    {
+//                                  reference.child("personal_data").child(userId).setValue(map);
+                                    }
                             }
 
                             @Override
@@ -167,19 +145,20 @@ public class DetailActivity extends AppCompatActivity {
                             }
                         });
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(DetailActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
                 });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
                 Toast.makeText(DetailActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });*/
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+
+            }
+        });
 
     }
 

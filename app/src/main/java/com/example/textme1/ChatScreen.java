@@ -95,6 +95,9 @@ public class ChatScreen extends AppCompatActivity {
                        if (snapshot.exists()){
                                String name = snapshot.child("username").getValue().toString();
                                username.setText(name);
+                               Glide.with(getApplicationContext())
+                                       .load(snapshot.child("imageUrl").getValue().toString())
+                                       .into(profile_image);
                            Toast.makeText(ChatScreen.this, snapshot.child("id").getValue()+"", Toast.LENGTH_SHORT).show();
                        }else{
                            Toast.makeText(ChatScreen.this, "No data to show!", Toast.LENGTH_SHORT).show();

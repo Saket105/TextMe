@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="You'll receive a 4 digit code"
+                android:text="You'll receive a 6 digit code"
                 android:textColor="#000"
                 android:alpha="0.7"
                 android:textSize="18sp"/>

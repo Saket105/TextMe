@@ -17,8 +17,17 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.example.textme1.DetailActivity">
 
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+
         </activity>
-        <activity android:name="com.example.textme1.MessageActivity" />
+        <activity android:name="com.example.textme1.MessageActivity" >
+
+        </activity>
+
         <activity android:name="com.example.textme1.LoginActivity">
 
 <!--            <intent-filter>-->
@@ -42,6 +51,7 @@
 <!--            android:parentActivityName=".StartActivity" />-->
         <activity android:name="com.example.textme1.OtpVarificationActivity">
         </activity>
+
         <activity android:name="com.example.textme1.StartActivity"></activity>
 
         <meta-data
