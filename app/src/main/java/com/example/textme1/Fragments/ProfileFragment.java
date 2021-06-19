@@ -14,9 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.textme1.Model.User;
 import com.example.textme1.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,8 +46,8 @@ import static android.app.Activity.RESULT_OK;
 
 public class ProfileFragment extends Fragment {
 
-    CircleImageView image_profile;
-    TextView username;
+    ImageView image_profile;
+    EditText username;
 
     DatabaseReference reference;
     FirebaseUser fuser;
@@ -67,20 +71,20 @@ public class ProfileFragment extends Fragment {
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
-        String userId = fuser.getUid();
-        username.setText(userId);
+//        String userId = fuser.getUid();
+////        username.setText(userId);
         reference = FirebaseDatabase.getInstance().getReference("users").child("personal_data").child(fuser.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-//                User user = dataSnapshot.getValue(User.class);
-//                username.setText(user.getUsername());
-//                if (user.getImageUrl().equals("default")){
-//                    image_profile.setImageResource(R.mipmap.ic_launcher);
-//                } else{
-//                    Glide.with(getContext()).load(user.getImageUrl()).into(image_profile);
-//                }
+                User user = dataSnapshot.getValue(User.class);
+                username.setText(user.getUsername());
+                if (user.getImageUrl().equals("default")){
+                    image_profile.setImageResource(R.mipmap.ic_launcher);
+                } else{
+                    Glide.with(getContext()).load(user.getImageUrl()).into(image_profile);
+                }
             }
 
             @Override
