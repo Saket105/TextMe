@@ -27,6 +27,7 @@
                 android:fontFamily="@font/ubuntu_mono"
                 android:textColor="#000"
                 android:gravity="center"
+                android:visibility="gone"
                 android:background="@drawable/detail_bg1"
                 android:layout_margin="5dp"
                 android:textSize="18sp"
@@ -41,7 +42,7 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/saket_one"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -63,6 +64,7 @@
                 android:textColor="#fff"
                 android:backgroundTint="@color/main_color2"
                 android:layout_below="@+id/username"
+                android:visibility="gone"
                 android:layout_centerHorizontal="true"
                 android:fontFamily="@font/ubuntu_mono"/>
 

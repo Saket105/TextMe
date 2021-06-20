@@ -150,7 +150,7 @@ public class DetailActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                progressDialog.dismiss();
+//                progressDialog.dismiss();
                 Toast.makeText(DetailActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {

@@ -22,7 +22,6 @@
             android:background="@drawable/background_right"
             android:text="hi hi hi"
             android:textColor="#fff"
-            android:gravity="center"
             android:layout_alignParentEnd="true"
             android:id="@+id/show_message"
             android:textSize="18sp"
